@@ -1,0 +1,22 @@
+# Dependencies & large packages
+lib/
+node_modules/
+**/lib/
+**/node_modules/
+
+# Compiler & build output
+cache/
+out/
+**/cache/
+**/out/
+
+# Broadcast logs
+/broadcast/*/31337/
+/broadcast/**/dry-run/
+
+# Environment
+.env
+.env.*
+
+# Docs (optional)
+docs/
