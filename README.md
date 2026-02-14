@@ -10,6 +10,8 @@
 
 链接: https://decert.me/quests/fa82f574-7f3e-4566-8916-dd7aff17cb01
 
+提交链接：https://github.com/ZXR-v2/Module-7-Defi/tree/main/uniswapV2-analysis（Uniswap V2 Core/Periphery 中文注释 + Foundry 本地部署说明）
+
 实战 3: 实现一个 LaunchPad 平台, 掌握 LaunchPad 是如何运行的，LaunchPad 除了一级发行，也会接入 Uniswap DEX ，因此在挑战中可以理解到一级和二级市场的差异。
 
 链接: https://decert.me/quests/df4886bc-65c6-45fb-ad0c-3389a9f99bf2

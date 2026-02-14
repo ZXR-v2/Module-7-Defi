@@ -1,0 +1,17 @@
+# Uniswap V2 统一 Foundry 工程：Core + Periphery 一起编译与部署
+# 在仓库根目录执行: forge build / forge script script/Deploy.s.sol
+[profile.default]
+src = "v2-periphery/contracts"
+out = "out"
+solc = "0.6.6"
+
+# Core 与 uniswap-lib 通过 remapping 引入；Pair 与本工程一起编译，init_code_hash 需与本工程一致
+remappings = [
+    "@uniswap/v2-core/contracts/=v2-core/contracts/",
+    "@uniswap/lib/contracts/=v2-periphery/contracts/uniswap-lib/",
+    "periphery/=v2-periphery/contracts/"
+]
+
+# 部署脚本目录（根目录 script/ 供 Deploy.s.sol 使用）
+script = "script"
+test = "test"

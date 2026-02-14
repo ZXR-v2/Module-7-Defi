@@ -1,0 +1,12 @@
+[profile.default]
+src = "contracts"
+out = "out"
+solc = "0.6.6"
+optimizer = true
+optimizer_runs = 999999
+
+# 使用本地 v2-core 和 uniswap-lib，避免依赖 npm 包
+remappings = [
+    "@uniswap/v2-core/contracts/=../v2-core/contracts/",
+    "@uniswap/lib/contracts/=./contracts/uniswap-lib/"
+]
