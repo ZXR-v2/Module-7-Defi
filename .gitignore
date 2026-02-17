@@ -3,6 +3,8 @@ lib/
 node_modules/
 **/lib/
 **/node_modules/
+# 例外：launchpad 的 lib 随仓库存放，需提交
+!launchpad-uniswap-v2/lib/
 
 # Compiler & build output
 cache/
