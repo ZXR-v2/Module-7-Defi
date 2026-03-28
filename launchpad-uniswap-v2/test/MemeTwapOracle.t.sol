@@ -2,6 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "forge-std/Test.sol";
+import "forge-std/console.sol";
 import "solmate/tokens/WETH.sol";
 import "../src/MemeFactory.sol";
 import "../src/MemeToken.sol";
@@ -127,6 +128,11 @@ contract MemeTwapOracleTest is Test {
 
         uint256 twap = oracle.twapEthPer1e18Meme(memeToken);
 
+        console.log("=== test_twapAcrossMultipleSwapsDiffersFromEndSpot ===");
+        console.log("spotInitial (wei per 1e18 MEME):", spotInitial);
+        console.log("spotEnd     (wei per 1e18 MEME):", spotEnd);
+        console.log("twap        (wei per 1e18 MEME):", twap);
+
         assertGt(twap, 0, "TWAP > 0");
         assertGt(spotEnd, spotInitial, "spot moved after buys");
         assertLt(twap, spotEnd, "TWAP below terminal spot after late pump");
@@ -150,6 +156,10 @@ contract MemeTwapOracleTest is Test {
         vm.warp(block.timestamp + TWAP_PERIOD);
         oracle.update(memeToken);
         uint256 twap2 = oracle.twapEthPer1e18Meme(memeToken);
+
+        console.log("=== test_secondUpdateWindow ===");
+        console.log("twap1 (wei per 1e18 MEME):", twap1);
+        console.log("twap2 (wei per 1e18 MEME):", twap2);
 
         assertGt(twap2, twap1, "second window TWAP should reflect new buys");
         assertGt(pair.ethWeiPer1e18Meme(memeToken), 0);

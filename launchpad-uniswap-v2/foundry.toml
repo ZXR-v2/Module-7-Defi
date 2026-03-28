@@ -5,4 +5,6 @@ libs = ["lib"]
 auto_detect_solc = true
 optimizer = true
 optimizer_runs = 200
+# 允许 vm.getCode/deployCode 使用未纳入当前测试依赖图的 artifact（如仅跑 MemeTwapOracle 时仍需 0.5/0.6 的 Uniswap V2）
+unchecked_cheatcode_artifacts = true
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

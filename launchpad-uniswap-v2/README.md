@@ -92,10 +92,29 @@ forge build
 
 ### 测试
 
-需运行**全部测试**以编译 Uniswap V2 相关合约并生成正确 artifact（否则 `deployCode` 可能找不到 Factory/Router）：
+Foundry 在带 `--match-contract` / `--match-path` 等过滤条件时，只会编译**与当前测试依赖相关**的合约；测试中 `deployCode("UniswapV2Factory.sol:UniswapV2Factory", …)` 依赖 **Solc 0.5 / 0.6** 生成的 Uniswap 工件。本仓库已做两处处理：
+
+- **`foundry.toml`** 中设置 `unchecked_cheatcode_artifacts = true`，允许 `vm.getCode` / `deployCode` 使用磁盘上已存在、但未纳入本次测试依赖图的 artifact（与 [Foundry #7334 起的选择性编译](https://github.com/foundry-rs/foundry/issues/7334) 行为兼容）。
+- **`src/build_anchor/`** 下的占位文件在 **`forge build`** 时会拉取 Uniswap V2 Factory / Router 的编译，保证 `out/` 里始终能生成对应 JSON。
+
+推荐命令：
 
 ```bash
 forge test
+```
+
+**`MemeTwapOracle.t.sol` 里的 `console.log`（TWAP / spot 数值）** 在默认 `forge test` 下**不会**打印；请至少加 **`-vv`**，在通过的用例下方的 **`Logs:`** 段查看。
+
+```bash
+forge test -vv
+# 或仅 TWAP：forge test --match-contract MemeTwapOracleTest -vv
+```
+
+若只想跑某一合约（例如 TWAP 测试），在 **`forge clean` 之后**请先 **`forge build`**（或先跑一次完整 `forge test`），再执行过滤测试，否则 `out/` 中可能尚无 Uniswap 的 artifact：
+
+```bash
+forge build
+forge test --match-contract MemeTwapOracleTest -vv
 ```
 
 带详细 trace：
